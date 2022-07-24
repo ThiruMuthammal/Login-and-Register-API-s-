@@ -1,0 +1,28 @@
+version: "3"
+services:
+  login-app:
+        container_name: login-app-dev
+        image: thirumuthammal/login-app-dev:v1
+        build: .
+        environment: 
+              MY_DB: mongodb://mongo_db_host:27017/loginapi
+        ports:
+          - "83:8080"
+        depends_on: 
+          - mongo 
+        links: 
+          - mongo:mongo_db_host
+  mongo:
+        container_name: login-app-db
+        image: mongo
+        restart: always
+  web:
+        container_name: login-app-web
+        image: login-app-web:v1
+        build: D:\ResponsiveDesign Login and Register UI
+        ports:
+          - "4200:80"
+        depends_on: 
+          - login-app
+        
+        
